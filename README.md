@@ -4,7 +4,7 @@ which involves scrolling through content.This program tries to understand what t
 user likes and prints the liked number, which the user liked as much as possible. And often it 
 mixes things up and prints a random number from time to time and checks if the user likes 
 the different number. The program also removes the number which has been liked by the user once but
-the time spent on that number is less
+the time spent on that number is less.
 Here we can associate the number as the type of content(eg- music,sports,comedy)
 and using this program we can see if the user is into a certain type of content like music 
 it also mixes things a little to see if the user is interested in some other things like sports
