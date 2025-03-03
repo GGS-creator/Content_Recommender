@@ -10,3 +10,5 @@ and using this program we can see if the user is into a certain type of content 
 it also mixes things a little to see if the user is interested in some other things like sports
 or comedy.If the user likes to watch comedy content more and has stopped liking sports content
 the program removes it from the liked content, now comedy is in the liked content.
+This edited program also has content liked by friends and it also recommends it to the
+user.
