@@ -1,14 +1,33 @@
-/*This program is created by Gagan.G.Saralaya on 10/2/2025 to act like the algorithm used in various social media sites
-which involves scrolling through content.This program tries to understand what the 
-user likes and prints the liked number, which the user liked as much as possible. And often it 
-mixes things up and prints a random number from time to time and checks if the user likes 
-the different number. The program also removes the number which has been liked by the user once but
-the time spent on that number is less
+/*This program is created by Gagan.G.Saralaya on 10/2/2025 to 
+act like the algorithm used in various social media sites
+which involves scrolling through content.
+This program tries to understand what the 
+user likes and prints the liked number, 
+which the user liked as much as possible. 
+And often it mixes things up and prints a 
+random number from time to time and checks 
+if the user likes the different number. 
+The program also removes the number which has been liked by the user once but
+the time spent on that number is less.
 Here we can associate the number as the type of content(eg- music,sports,comedy)
-and using this program we can see if the user is into a certain type of content like music 
+and using this program we can see if the user is into a certain type of content 
+like music 
 it also mixes things a little to see if the user is interested in some other things like sports
-or comedy.If the user likes to watch comedy content more and has stopped liking sports content
+or comedy.
+If the user likes to watch comedy content more and has stopped liking sports content
 the program removes it from the liked content, now comedy is in the liked content.*/
+/*
+This edited program is more accurate than the previous one as 
+it also recommends content from friends.
+Here lets take a and b as the friends of the user and we assume
+the content viwed and liked by friends a and b are 1,3,5 and 2,4,6 respectively.
+If the user likes the content viewed by friends a and b, the program will save 
+that specific content in the liked content.
+If the user doesn't like the content viewed by friends a and b, the program will
+recommend a random content.
+If the user has viewed more than 3 contents and has liked more than 3 contents, the program will
+recommend content from the liked content.
+*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
@@ -35,6 +54,9 @@ void delete2(int a);
 void ins_strike(int a);
 //checks if strike is more than 5
 void check_excess_strike(int a);
+int a[]={1,3,5};
+int b[]={2,4,6};
+char username[50];
 int prev=0;
 int prev2;
 void display();
@@ -155,7 +177,7 @@ int getrandom(struct node2 *head2){
 }
 //displays random number and time taken
 void display(){
-    printf("\nHistory of content viewed");
+    printf("\nHistory of content viewed by %s",username);
     struct node *temp;
     temp = head;
     while(temp != NULL){
@@ -169,7 +191,7 @@ void case1(int x,int timet){
     if(timet>7){
 
         ins(x,timet,0);
-        for(int i=0;i<3;i++){
+        for(int i=0;i<2;i++){
             check=takee(x);
         }
         if(check<7){
@@ -182,6 +204,23 @@ void case1(int x,int timet){
         }
     }
     else{
+        int nextcont=rand()%3;
+        if(nextcont==0){//Insert friend content
+            //This displays random content from friends a and b.
+            int anyfriend=rand()%2;
+            if(anyfriend==0){
+                int a1=rand()%3;
+                printf("\nFriend's content recommended");
+                takee(a[a1]);
+            }
+            else{
+                int b1=rand()%3;
+                printf("\nFriend's content recommended");
+                takee(b[b1]);
+            }
+            take();
+        }
+        else{
         if(rep<3){
             rep++;
             take();
@@ -196,6 +235,7 @@ void case1(int x,int timet){
         else{
             take();
         }
+        }
     }
 }
 //displays liked content
@@ -204,10 +244,14 @@ void display2(){
     struct node2 *temp2;
     temp2 = head2;
     while(temp2 != NULL){
-        printf("\nLiked content is %d",temp2->data);
+        printf("\nLiked content of %s is %d",username,temp2->data);
         printf("\nTime taken is %d",temp2->points);
         printf("\nStrike is %d",temp2->strike);
         temp2 = temp2->next;
+    }
+    for(int i=0;i<3;i++){
+        printf("\nLiked content of a=%d",a[i]);
+        printf("\nLiked content of b=%d",b[i]);
     }
 }
 void take(){    
@@ -220,7 +264,7 @@ void take(){
     time(&end);
     
     if(scroll==0){
-    timet=difftime(end,start);
+    timet=difftime(end,start);//takes difference betwee endtime and starttime
     printf("Time taken is %d\n",timet);
     insert(y,timet);
     case1(y,timet);
@@ -258,6 +302,9 @@ int takee(int a){
 int main(){
     printf("\nWelcome to Gagan's social media site 10/2/2025\n");
     printf("-------------------------------------");
+    printf("\nEnter your username:");
+    scanf("%s",username);
+    srand(time(0));//randomizes the random number
     take();
     return 0;
 }
